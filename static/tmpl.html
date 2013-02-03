@@ -1,0 +1,16 @@
+<h1>My leaderboard<h1>
+
+{% for hashtags, members in items %}
+    <h2>{{hashtags}}<h2>
+
+    <table border="1">
+        {% for rank, author, count in members %}
+            <tr>
+                <td>{{rank}}</td>
+                <td>{{author}}</td>
+                <td>{{count}}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endfor %}

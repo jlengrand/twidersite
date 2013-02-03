@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Using Google CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script>
+        (function worker() {
+          $.ajax({
+            url : 'http://jlengrand.pythonanywhere.com/static/leader.html?rand='+Math.random(),
+            success: function(data) {
+              $('.text').html(data);
+            },
+            complete: function() {
+              setTimeout(worker, 1000);
+            }
+          });
+        })();
+    </script>
+</head>
+<body>
+    <div class="text">
+        To be loaded <br />
+    </div>
+</body>
+</html>
