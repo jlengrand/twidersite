@@ -1,31 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <!-- Using Google CDN -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-  <script type=text/javascript>
+{% extends "layout.html" %}
+{% block body %}
+<script type=text/javascript>
   $(function() {
-    $('a#calculate').bind('click', function() {
+    var submit_form = function(e) {
       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
         a: $('input[name="a"]').val(),
         b: $('input[name="b"]').val()
       }, function(data) {
-        $("#result").text(data.result);
+        $('#result').text(data.result);
+        $('input[name=a]').focus().select();
       });
       return false;
+    };
+
+    $('a#calculate').bind('click', submit_form);
+
+    $('input[type=text]').bind('keydown', function(e) {
+      if (e.keyCode == 13) {
+        submit_form(e);
+      }
     });
+
+    $('input[name=a]').focus();
   });
-  </script>
-  <h1>jQuery Example</h1>
-  <p><input type=text size=5 name=a> +
-   <input type=text size=5 name=b> =
-   <span id=result>?</span>
-   <p><a href=# id=calculate>calculate server side</a>
-   </head>
-   <body>
-    <div class="text">
-      To be loaded <br />
-    </div>
-  </body>
-  </html>
+</script>
+<h1>jQuery Example</h1>
+<p>
+  <input type=text size=5 name=a> +
+  <input type=text size=5 name=b> =
+  <span id=result>?</span>
+<p><a href=# id=calculate>calculate server side</a>
+{% endblock %}
